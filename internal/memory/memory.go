@@ -128,7 +128,11 @@ func (m *Memory) GetAll() ([]MemoryEntry, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() {
+		if closeErr := rows.Close(); closeErr != nil {
+			fmt.Fprintf(os.Stderr, "warning: failed to close rows: %v\n", closeErr)
+		}
+	}()
 
 	var entries []MemoryEntry
 	for rows.Next() {

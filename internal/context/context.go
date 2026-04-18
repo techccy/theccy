@@ -45,7 +45,7 @@ func (c *Context) Collect(workDir string, errorMessage string) (string, error) {
 		if len(c.FileContents) > 0 {
 			builder.WriteString("\n=== Relevant File Contents ===\n")
 			for filePath, content := range c.FileContents {
-				builder.WriteString(fmt.Sprintf("\n--- %s ---\n%s\n", filePath, content))
+				fmt.Fprintf(&builder, "\n--- %s ---\n%s\n", filePath, content)
 			}
 		}
 	}
@@ -84,9 +84,9 @@ func (c *Context) getDirectoryStructure(dir string) (string, error) {
 			if ignoreDirs[info.Name()] {
 				return filepath.SkipDir
 			}
-			result.WriteString(fmt.Sprintf("%s/\n", relPath))
+			fmt.Fprintf(&result, "%s/\n", relPath)
 		} else {
-			result.WriteString(fmt.Sprintf("%s\n", relPath))
+			fmt.Fprintf(&result, "%s\n", relPath)
 		}
 
 		return nil
@@ -145,7 +145,11 @@ func (c *Context) readFileContext(filePath, lineNumStr string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer file.Close()
+	defer func() {
+		if closeErr := file.Close(); closeErr != nil {
+			fmt.Fprintf(os.Stderr, "warning: failed to close file: %v\n", closeErr)
+		}
+	}()
 
 	var lines []string
 	scanner := bufio.NewScanner(file)
@@ -158,7 +162,9 @@ func (c *Context) readFileContext(filePath, lineNumStr string) (string, error) {
 	}
 
 	lineNum := 1
-	fmt.Sscanf(lineNumStr, "%d", &lineNum)
+	if _, err := fmt.Sscanf(lineNumStr, "%d", &lineNum); err != nil {
+		lineNum = 1
+	}
 
 	start := lineNum - 11
 	if start < 0 {
@@ -176,7 +182,7 @@ func (c *Context) readFileContext(filePath, lineNumStr string) (string, error) {
 		if i == lineNum-1 {
 			prefix = "> "
 		}
-		result.WriteString(fmt.Sprintf("%s%4d: %s\n", prefix, i+1, lines[i]))
+		fmt.Fprintf(&result, "%s%4d: %s\n", prefix, i+1, lines[i])
 	}
 
 	return result.String(), nil

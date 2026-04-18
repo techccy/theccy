@@ -75,7 +75,11 @@ func main() {
 		ui.ShowError(fmt.Sprintf("记忆模块初始化失败: %v", err))
 		os.Exit(1)
 	}
-	defer mem.Close()
+	defer func() {
+		if closeErr := mem.Close(); closeErr != nil {
+			fmt.Fprintf(os.Stderr, "warning: failed to close memory: %v\n", closeErr)
+		}
+	}()
 
 	cachedEntry, err := mem.Find(failedCommand, errorMessage)
 	if err == nil && cachedEntry != nil {
@@ -145,7 +149,7 @@ Example:
 
 	if requestErr != nil && providerName != "ollama" {
 		stopLoading()
-		ui.ShowSuccess(fmt.Sprintf("网络请求失败，尝试切换到本地 Ollama..."))
+		ui.ShowSuccess("网络请求失败，尝试切换到本地 Ollama...")
 
 		if ollamaProvider, err := factory.CreateProvider(cfg, "ollama"); err == nil {
 			stopLoading = ui.ShowLoading(fmt.Sprintf("正在呼叫 Ollama (%s)", ollamaProvider.GetModelName()))
@@ -182,11 +186,15 @@ Example:
 
 	if confirmed {
 		if err := ui.ExecuteCommand(response.Command); err != nil {
-			mem.Save(failedCommand, errorMessage, response.Command, false)
+			if saveErr := mem.Save(failedCommand, errorMessage, response.Command, false); saveErr != nil {
+				fmt.Fprintf(os.Stderr, "warning: failed to save memory: %v\n", saveErr)
+			}
 			ui.ShowError(fmt.Sprintf("执行命令失败: %v", err))
 			os.Exit(1)
 		}
-		mem.Save(failedCommand, errorMessage, response.Command, true)
+		if saveErr := mem.Save(failedCommand, errorMessage, response.Command, true); saveErr != nil {
+			fmt.Fprintf(os.Stderr, "warning: failed to save memory: %v\n", saveErr)
+		}
 		ui.ShowSuccess("命令执行完成")
 	} else {
 		fmt.Println("\n已取消")

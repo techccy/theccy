@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -38,7 +39,7 @@ func (p *OllamaProvider) SendRequest(messages []Message) (string, error) {
 
 	ollamaMessages := make([]OllamaMessage, len(messages))
 	for i, msg := range messages {
-		ollamaMessages[i] = OllamaMessage{
+		ollamaMessages[i] = OllamaMessage{ //nolint:staticcheck
 			Role:    msg.Role,
 			Content: msg.Content,
 		}
@@ -68,10 +69,14 @@ func (p *OllamaProvider) SendRequest(messages []Message) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to send request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil {
+			fmt.Fprintf(os.Stderr, "warning: failed to close response body: %v\n", closeErr)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("Ollama returned status code: %d", resp.StatusCode)
+		return "", fmt.Errorf("ollama returned status code: %d", resp.StatusCode)
 	}
 
 	var ollamaResp OllamaResponse
@@ -93,6 +98,10 @@ func (p *OllamaProvider) CheckHealth() bool {
 	if err != nil {
 		return false
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil {
+			fmt.Fprintf(os.Stderr, "warning: failed to close response body: %v\n", closeErr)
+		}
+	}()
 	return resp.StatusCode == http.StatusOK
 }

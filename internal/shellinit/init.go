@@ -7,10 +7,10 @@ import (
 
 func GenerateInitScript() (string, error) {
 	shell := os.Getenv("SHELL")
-	switch {
-	case shell == "" || shell == "/bin/zsh" || shell == "/usr/bin/zsh":
+	switch shell {
+	case "", "/bin/zsh", "/usr/bin/zsh":
 		return generateZshScript(), nil
-	case shell == "/bin/bash" || shell == "/usr/bin/bash":
+	case "/bin/bash", "/usr/bin/bash":
 		return generateBashScript(), nil
 	default:
 		return "", fmt.Errorf("unsupported shell: %s", shell)
