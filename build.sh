@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v1.0.1"
+VERSION="v1.0.2"
 TIME=$(date '+%Y-%m-%d %H:%M:%S')
 LDFLAGS="-X 'main.Version=${VERSION}' -X 'main.BuildTime=${TIME}' -s -w"
 

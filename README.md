@@ -19,8 +19,8 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/ccy-ai/diu-assistant.git
-cd diu-assistant
+git clone https://github.com/techccy/thediu.git
+cd thediu
 ```
 
 ```
@@ -30,7 +30,7 @@ go build -o diu-core
 
 * 将以下变量放在环境变量末尾
 ```
-export PATH="{PATH_TO}thediau/build:$PATH"
+export PATH="{PATH_TO}thediu/build:$PATH"
 eval "$(diu-core --init)"
 ```
 
