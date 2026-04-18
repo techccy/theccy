@@ -7,6 +7,7 @@ import (
 
 	"github.com/ccy-ai/ccy-assistant/internal/api"
 	"github.com/ccy-ai/ccy-assistant/internal/model"
+	"github.com/ccy-ai/ccy-assistant/internal/shellinit"
 	"github.com/ccy-ai/ccy-assistant/internal/tui"
 )
 
@@ -17,6 +18,16 @@ func main() {
 
 	if len(args) == 0 {
 		ui.ShowHelp()
+		os.Exit(0)
+	}
+
+	if args[0] == "--init" {
+		script, err := shellinit.GenerateInitScript()
+		if err != nil {
+			ui.ShowError(err.Error())
+			os.Exit(1)
+		}
+		fmt.Println(script)
 		os.Exit(0)
 	}
 

@@ -64,6 +64,10 @@ func (ui *UI) ShowError(message string) {
 
 func (ui *UI) ShowHelp() {
 	fmt.Println("用法: ccy-core \"[失败的命令]\" \"[错误日志]\"")
+	fmt.Println("       ccy-core --init")
+	fmt.Println()
+	fmt.Println("命令:")
+	fmt.Println("  --init       输出 Shell 初始化脚本，用于终端集成")
 	fmt.Println()
 	fmt.Println("参数:")
 	fmt.Println("  失败的命令  - 执行失败的终端命令")
@@ -73,4 +77,8 @@ func (ui *UI) ShowHelp() {
 	fmt.Println("  CCY_API_KEY  - LLM API 密钥 (必需)")
 	fmt.Println("  CCY_API_BASE - LLM API 基础 URL (可选, 默认: https://api.openai.com/v1)")
 	fmt.Println("  CCY_MODEL    - LLM 模型名称 (可选, 默认: gpt-4)")
+	fmt.Println()
+	fmt.Println("Shell 集成:")
+	fmt.Println("  在 ~/.zshrc 或 ~/.bashrc 中添加: eval \"$(ccy-core --init)\"")
+	fmt.Println("  之后可直接使用 'ccy' 命令，无需手动输入失败的命令和错误")
 }
