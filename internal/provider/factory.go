@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ccy-ai/ccy-assistant/internal/config"
+	"github.com/ccy-ai/diu-assistant/internal/config"
 )
 
 type ProviderFactory struct{}
@@ -21,7 +21,7 @@ func (f *ProviderFactory) CreateProvider(cfg *config.Config, providerName string
 
 	apiKey := provider.APIKey
 	if apiKey == "" {
-		apiKey = os.Getenv("CCY_API_KEY")
+		apiKey = os.Getenv("DIU_API_KEY")
 	}
 
 	switch providerName {

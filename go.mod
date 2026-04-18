@@ -1,4 +1,4 @@
-module github.com/ccy-ai/ccy-assistant
+module github.com/ccy-ai/diu-assistant
 
 go 1.24.0
 

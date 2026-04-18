@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ccy-ai/ccy-assistant/internal/config"
-	"github.com/ccy-ai/ccy-assistant/internal/context"
-	"github.com/ccy-ai/ccy-assistant/internal/provider"
-	"github.com/ccy-ai/ccy-assistant/internal/shellinit"
-	"github.com/ccy-ai/ccy-assistant/internal/tui"
+	"github.com/ccy-ai/diu-assistant/internal/config"
+	"github.com/ccy-ai/diu-assistant/internal/context"
+	"github.com/ccy-ai/diu-assistant/internal/provider"
+	"github.com/ccy-ai/diu-assistant/internal/shellinit"
+	"github.com/ccy-ai/diu-assistant/internal/tui"
 )
 
 type AnalysisResponse struct {

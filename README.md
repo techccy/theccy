@@ -1,4 +1,4 @@
-# CCY Assistant
+# DIU Assistant
 
 受 [thefuck](https://github.com/nvbn/thefuck) 启发，一个 AI 驱动的命令行助手。当你在终端遇到错误时，它会自动分析错误并提供解决方案。
 
@@ -19,19 +19,19 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/ccy-ai/ccy-assistant.git
-cd ccy-assistant
+git clone https://github.com/ccy-ai/diu-assistant.git
+cd diu-assistant
 ```
 
 ```
 * 编译 (生成当前平台的二进制文件)
-go build -o ccy-core
+go build -o diu-core
 ```
 
 * 将以下变量放在环境变量末尾
 ```
-export PATH="{PATH_TO}theccy/build:$PATH"
-eval "$(ccy-core --init)"
+export PATH="{PATH_TO}thediau/build:$PATH"
+eval "$(diu-core --init)"
 ```
 
 * 重载配置
@@ -41,13 +41,13 @@ source ~/.zshrc
 
 ```
 # Windows (使用 PowerShell)
-Move-Item ccy-core "$env:USERPROFILE\bin\"
+Move-Item diu-core "$env:USERPROFILE\bin\"
 ```
 
 ```
 # 初始化
-eval "$(ccy-core --init)" >> ~/.zshrc  # zsh
-eval "$(ccy-core --init)" >> ~/.bashrc # bash
+eval "$(diu-core --init)" >> ~/.zshrc  # zsh
+eval "$(diu-core --init)" >> ~/.bashrc # bash
 # 重新加载 shell 配置
 source ~/.zshrc  # zsh
 source ~/.bashrc # bash
@@ -59,38 +59,38 @@ source ~/.bashrc # bash
 
 ```bash
 # macOS x86_64
-CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ccy-core-darwin-amd64
+CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o diu-core-darwin-amd64
 
 # macOS ARM64 (Apple Silicon)
-CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o ccy-core-darwin-arm64
+CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o diu-core-darwin-arm64
 
 # Linux x86_64
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ccy-core-linux-amd64
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o diu-core-linux-amd64
 
 # Linux ARM64
-CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ccy-core-linux-arm64
+CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o diu-core-linux-arm64
 
 # Windows x86_64
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ccy-core-windows-amd64.exe
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o diu-core-windows-amd64.exe
 ```
 
 所有二进制文件均为静态链接，可独立运行，无需额外依赖。
 
 ### 从 Release 安装
 
-1. 访问 [GitHub Release 页面](https://github.com/ccy-ai/ccy-assistant/releases)
+1. 访问 [GitHub Release 页面](https://github.com/ccy-ai/diu-assistant/releases)
 2. 根据你的系统下载对应的二进制文件：
 
 | 平台 | 架构 | 文件名 |
 |------|------|--------|
-| macOS | x86_64 (Intel) | `ccy-core_darwin_amd64.tar.gz` |
-| macOS | ARM64 (Apple Silicon) | `ccy-core_darwin_arm64.tar.gz` |
-| Linux | x86_64 | `ccy-core_linux_amd64.tar.gz` |
-| Linux | ARM64 | `ccy-core_linux_arm64.tar.gz` |
-| Windows | x86_64 | `ccy-core_windows_amd64.zip` |
+| macOS | x86_64 (Intel) | `diu-core_darwin_amd64.tar.gz` |
+| macOS | ARM64 (Apple Silicon) | `diu-core_darwin_arm64.tar.gz` |
+| Linux | x86_64 | `diu-core_linux_amd64.tar.gz` |
+| Linux | ARM64 | `diu-core_linux_arm64.tar.gz` |
+| Windows | x86_64 | `diu-core_windows_amd64.zip` |
 
 3. 解压并移动到 PATH 目录
-4. 运行初始化命令：`ccy-core --init`
+4. 运行初始化命令：`diu-core --init`
 
 ## 使用方法
 
@@ -103,19 +103,19 @@ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ccy-core-windows-amd64.exe
 git push origin main
 # fatal: The current branch has no upstream branch
 
-# 运行 ccy 来获取解决方案
-ccy
+# 运行 diu 来获取解决方案
+diu
 ```
 
 ### Shell 集成
 
-运行以下命令将 ccy 集成到你的 shell 中：
+运行以下命令将 diu 集成到你的 shell 中：
 
 ```bash
-eval "$(ccy-core --init)"
+eval "$(diu-core --init)"
 ```
 
-这会将一个 `ccy` 函数添加到你的 shell 中，它会：
+这会将一个 `diu` 函数添加到你的 shell 中，它会：
 1. 自动捕获上一条失败的命令
 2. 分析错误信息
 3. 提供修复建议
@@ -125,18 +125,18 @@ eval "$(ccy-core --init)"
 
 #### 配置文件
 
-CCY Assistant 会自动在 `~/.ccy/config.yaml` 创建配置文件：
+DIU Assistant 会自动在 `~/.diu/config.yaml` 创建配置文件：
 
 ```yaml
 default_provider: ollama  # 默认提供商
 providers:
   openai:
     base_url: https://api.openai.com/v1
-    api_key: env:CCY_OPENAI_KEY
+    api_key: env:DIU_OPENAI_KEY
     model: gpt-4o-mini
   deepseek:
     base_url: https://api.deepseek.com
-    api_key: env:CCY_DEEPSEEK_KEY
+    api_key: env:DIU_DEEPSEEK_KEY
     model: deepseek-chat
   ollama:
     base_url: http://localhost:11434
@@ -150,27 +150,27 @@ providers:
 
 ```bash
 # OpenAI
-export CCY_OPENAI_KEY=sk-your-key-here
+export DIU_OPENAI_KEY=sk-your-key-here
 
 # DeepSeek
-export CCY_DEEPSEEK_KEY=sk-your-key-here
+export DIU_DEEPSEEK_KEY=sk-your-key-here
 ```
 
-或使用 `ccy-core --config` 查看详细配置指南
+或使用 `diu-core --config` 查看详细配置指南
 
 #### 切换提供商
 
 ```bash
-ccy-core --switch
+diu-core --switch
 ```
 
 ### 命令行选项
 
 ```bash
-ccy-core --init      # 生成 Shell 初始化脚本
-ccy-core --config    # 显示配置指南
-ccy-core --switch    # 切换 AI 提供商
-ccy-core --help      # 显示帮助信息
+diu-core --init      # 生成 Shell 初始化脚本
+diu-core --config    # 显示配置指南
+diu-core --switch    # 切换 AI 提供商
+diu-core --help      # 显示帮助信息
 ```
 
 ## 工作原理
@@ -192,7 +192,7 @@ ccy-core --help      # 显示帮助信息
 ## 项目结构
 
 ```
-ccy-assistant/
+diu-assistant/
 ├── main.go              # 主程序入口
 ├── internal/
 │   ├── config/          # 配置管理
@@ -219,7 +219,7 @@ go test -v ./...
 
 ```bash
 # 构建当前平台
-go build -o ccy-core
+go build -o diu-core
 
 # 构建所有平台 (使用 GoReleaser)
 goreleaser build --snapshot --clean

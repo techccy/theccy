@@ -21,18 +21,18 @@ type Config struct {
 }
 
 var (
-	configPath    = filepath.Join(os.Getenv("HOME"), ".ccy", "config.yaml")
+	configPath    = filepath.Join(os.Getenv("HOME"), ".diu", "config.yaml")
 	defaultConfig = Config{
 		DefaultProvider: "ollama",
 		Providers: map[string]ProviderConfig{
 			"openai": {
 				BaseURL: "https://api.openai.com/v1",
-				APIKey:  "env:CCY_OPENAI_KEY",
+				APIKey:  "env:DIU_OPENAI_KEY",
 				Model:   "gpt-4o-mini",
 			},
 			"deepseek": {
 				BaseURL: "https://api.deepseek.com",
-				APIKey:  "env:CCY_DEEPSEEK_KEY",
+				APIKey:  "env:DIU_DEEPSEEK_KEY",
 				Model:   "deepseek-chat",
 			},
 			"ollama": {

@@ -172,10 +172,10 @@ func (ui *UI) ShowSuccess(message string) {
 
 func (ui *UI) ShowHelp() {
 	helpText := `
-用法: ccy-core "[失败的命令]" "[错误日志]"
-       ccy-core --init
-       ccy-core --config
-       ccy-core --switch
+用法: diu-core "[失败的命令]" "[错误日志]"
+       diu-core --init
+       diu-core --config
+       diu-core --switch
 
 命令:
   --init       输出 Shell 初始化脚本，用于终端集成
@@ -187,46 +187,46 @@ func (ui *UI) ShowHelp() {
   错误日志    - 可选，终端返回的错误信息
 
 环境变量:
-  CCY_API_KEY  - LLM API 密钥 (必需)
-  CCY_API_BASE - LLM API 基础 URL (可选, 默认: https://api.openai.com/v1)
-  CCY_MODEL    - LLM 模型名称 (可选, 默认: gpt-4)
+  DIU_API_KEY  - LLM API 密钥 (必需)
+  DIU_API_BASE - LLM API 基础 URL (可选, 默认: https://api.openai.com/v1)
+  DIU_MODEL    - LLM 模型名称 (可选, 默认: gpt-4)
 
 Shell 集成:
-   在 ~/.zshrc 或 ~/.bashrc 中添加: eval "$(ccy-core --init)"
-   之后可直接使用 'ccy' 命令，无需手动输入失败的命令和错误
+   在 ~/.zshrc 或 ~/.bashrc 中添加: eval "$(diu-core --init)"
+   之后可直接使用 'diu' 命令，无需手动输入失败的命令和错误
 
 配置:
-   开发环境: 在项目根目录创建 .env 文件并设置 CCY_API_KEY
-   生产环境: 使用环境变量 export CCY_API_KEY="your-key"
-   运行 ccy-core --config 查看详细配置指南
-   运行 ccy-core --switch 切换 AI 提供商
-`
+   开发环境: 在项目根目录创建 .env 文件并设置 DIU_API_KEY
+   生产环境: 使用环境变量 export DIU_API_KEY="your-key"
+   运行 diu-core --config 查看详细配置指南
+   运行 diu-core --switch 切换 AI 提供商
+ `
 
 	fmt.Println(strings.TrimSpace(helpText))
 }
 
 func (ui *UI) ShowConfigGuide() {
 	guideText := `
-🔧 ccy 配置指南
+🔧 diu 配置指南
 
 开发环境 (推荐用于源码开发):
    1. 在项目根目录创建 .env 文件
    2. 添加以下内容:
-      CCY_API_KEY=sk-your-api-key-here
-      CCY_API_BASE=https://api.openai.com/v1  (可选)
-      CCY_MODEL=gpt-4                           (可选)
+      DIU_API_KEY=sk-your-api-key-here
+      DIU_API_BASE=https://api.openai.com/v1  (可选)
+      DIU_MODEL=gpt-4                           (可选)
 
 生产环境 (推荐用于已编译的二进制):
    在 ~/.zshrc 或 ~/.bashrc 中添加:
-   export CCY_API_KEY="sk-your-api-key-here"
-   export CCY_API_BASE="https://api.openai.com/v1"  (可选)
-   export CCY_MODEL="gpt-4"                       (可选)
+   export DIU_API_KEY="sk-your-api-key-here"
+   export DIU_API_BASE="https://api.openai.com/v1"  (可选)
+   export DIU_MODEL="gpt-4"                       (可选)
 
 配置后重启终端或运行:
    source ~/.zshrc  (或 source ~/.bashrc)
 
 验证配置:
-   运行任意命令触发 ccy，如配置正确将显示 AI 分析结果
+   运行任意命令触发 diu，如配置正确将显示 AI 分析结果
 `
 
 	fmt.Println(strings.TrimSpace(guideText))

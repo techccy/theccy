@@ -4,7 +4,7 @@
 .env.*.local
 
 # Go binaries
-/ccy-core
+/diu-core
 /bin/
 
 # PRD
@@ -12,6 +12,6 @@ PRD/
 PHASE*
 test_*
 .DS_Store
-build/ccy
-ccy-assistant
-ccy-core-*
+build/diu
+diu-assistant
+diu-core-*
