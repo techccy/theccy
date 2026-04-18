@@ -27,7 +27,8 @@ go build -o ccy-core
 
 # 移动到 PATH 目录
 # macOS/Linux
-sudo mv ccy-core /usr/local/bin/
+# 添加 CCY CLI 到环境变量
+export PATH="{PATH_TO}theccy/build:$PATH"
 
 # Windows (使用 PowerShell)
 Move-Item ccy-core "$env:USERPROFILE\bin\"
