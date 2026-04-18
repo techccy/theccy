@@ -21,18 +21,30 @@
 # 克隆仓库
 git clone https://github.com/ccy-ai/ccy-assistant.git
 cd ccy-assistant
+```
 
-# 编译 (生成当前平台的二进制文件)
+```
+* 编译 (生成当前平台的二进制文件)
 go build -o ccy-core
+```
 
-# 移动到 PATH 目录
-# macOS/Linux
-# 添加 CCY CLI 到环境变量
+* 将以下变量放在环境变量末尾
+```
 export PATH="{PATH_TO}theccy/build:$PATH"
+eval "$(ccy-core --init)"
+```
 
+* 重载配置
+```
+source ~/.zshrc
+```
+
+```
 # Windows (使用 PowerShell)
 Move-Item ccy-core "$env:USERPROFILE\bin\"
+```
 
+```
 # 初始化
 eval "$(ccy-core --init)" >> ~/.zshrc  # zsh
 eval "$(ccy-core --init)" >> ~/.bashrc # bash
